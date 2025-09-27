@@ -1,11 +1,11 @@
 module cc
 
 struct CCContext {
-
+mut:
 }
 
 @[unsafe]
-fn singleton() &CCContext {
+fn context() &CCContext {
 	mut static ctx := voidptr(0)
 	if unsafe { ctx == nil } {
 		ctx = &CCContext{} 
@@ -18,9 +18,9 @@ fn cleanup() {
 }
 
 fn begin() {
-
+	mut ctx := unsafe { context() }
 }
 
 fn end() {
-
+	mut ctx := unsafe { context() }
 }
