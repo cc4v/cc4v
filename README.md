@@ -1,6 +1,6 @@
 # cc4v
 
-creative coding framework for V 
+creative coding framework for [V](https://vlang.io/)
 
 ## Install
 
