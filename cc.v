@@ -4,13 +4,14 @@ struct CCContext {
 mut:
 }
 
-@[unsafe]
 fn context() &CCContext {
-	mut static ctx := voidptr(0)
-	if unsafe { ctx == nil } {
-		ctx = &CCContext{} 
+	unsafe { 
+		mut static ctx := voidptr(0)
+		if ctx == nil {
+			ctx = &CCContext{} 
+		}
+		return ctx
 	}
-	return ctx
 }
 
 fn cleanup() {
@@ -18,9 +19,9 @@ fn cleanup() {
 }
 
 fn begin() {
-	mut ctx := unsafe { context() }
+	mut ctx := context()
 }
 
 fn end() {
-	mut ctx := unsafe { context() }
+	mut ctx := context()
 }
