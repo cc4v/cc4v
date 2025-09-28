@@ -63,8 +63,8 @@ fn setup(config CCConfig) {
 		config: config
 	}
 
-	mut w := 600
-	mut h := 600
+	mut w := 400
+	mut h := 400
 
 	if ctx.preferred_size != none {
 		w = ctx.preferred_size.x
