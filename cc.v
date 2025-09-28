@@ -39,14 +39,14 @@ mut:
 
 fn (c &CC) init(mut _ CC) {
 	if c.config.init_fn != none {
-		c.config.init_fn(c)
+		c.config.init_fn(c.data_ptr)
 	}
 }
 
 fn (c &CC) frame(mut _ CC) {
 	c.gg.begin()
 	if c.config.frame_fn != none {
-		c.config.frame_fn(c)
+		c.config.frame_fn(c.data_ptr)
 	}
 	c.gg.end()
 }
@@ -114,6 +114,16 @@ fn context() &CCContext {
 	}
 }
 
+// get gg context
+fn g() &gg.Context {
+	mut ctx := context()
+	if unsafe { ctx.cc == nil } {
+		return unsafe {nil}
+	}else{
+		return ctx.cc.gg
+	}
+}
+
 pub fn size(w int, h int) {
 	mut ctx := context()
 	if unsafe { ctx.cc == nil } {
@@ -128,20 +138,22 @@ pub fn background(c gg.Color) {
 	if unsafe { ctx.cc == nil } {
 		ctx.pref.bg_color = c
 	}else{
-		ctx.cc.background(c)
+		ctx.cc.gg.set_bg_color(c)
 	}
 }
 
-pub fn (mut c CC) background(col gg.Color) {
-	c.gg.set_bg_color(col)
+pub fn text(msg string, x int, y int) {
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		ctx.cc.gg.draw_text_def(x, y, msg)
+	}
 }
 
-pub fn (c &CC) text(msg string, x int, y int) {
-	c.gg.draw_text_def(x, y, msg)
-}
-
-pub fn (c &CC) draw_text(msg string, x int, y int, cfg gg.TextCfg) {
-	c.gg.draw_text(x, y, msg, cfg)
+pub fn draw_text(msg string, x int, y int, cfg gg.TextCfg) {
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		ctx.cc.gg.draw_text(x, y, msg, cfg)
+	}
 }
 
 pub fn init(init_fn fn (voidptr)) {
