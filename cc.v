@@ -23,12 +23,18 @@ pub mut:
 
 // ----------------
 
+struct Preference {
+mut:
+	size ?vec.Vec2[int]
+	init_fn ?gg.FNCb
+	bg_color ?gg.Color
+}
+
 @[heap]
 struct CCContext {
 mut:
 	cc &CC = unsafe { nil }
-	preferred_size ?vec.Vec2[int]
-	preferred_init_fn ?gg.FNCb
+	pref Preference
 }
 
 fn (c &CC) init(mut _ CC) {
@@ -65,18 +71,23 @@ fn setup(config CCConfig) {
 
 	mut w := 400
 	mut h := 400
+	mut bg_color := gg.white
 
-	if ctx.preferred_size != none {
-		w = ctx.preferred_size.x
-		h = ctx.preferred_size.y
+	if ctx.pref.size != none {
+		w = ctx.pref.size.x
+		h = ctx.pref.size.y
 	}
 
-	if c.config.init_fn == none && ctx.preferred_init_fn != none {
-		c.config.init_fn = ctx.preferred_init_fn
+	if ctx.pref.bg_color != none {
+		bg_color = ctx.pref.bg_color
+	}
+
+	if c.config.init_fn == none && ctx.pref.init_fn != none {
+		c.config.init_fn = ctx.pref.init_fn
 	}
 
 	c.gg = gg.new_context(
-		bg_color:      gg.white
+		bg_color:      bg_color
 		width:         w
 		height:        h
 		create_window: true
@@ -106,9 +117,18 @@ fn context() &CCContext {
 pub fn size(w int, h int) {
 	mut ctx := context()
 	if unsafe { ctx.cc == nil } {
-		ctx.preferred_size = vec.vec2[int](w, h)
+		ctx.pref.size = vec.vec2[int](w, h)
 	}else{
 		ctx.cc.gg.resize(w, h)
+	}
+}
+
+pub fn background(c gg.Color) {
+	mut ctx := context()
+	if unsafe { ctx.cc == nil } {
+		ctx.pref.bg_color = c
+	}else{
+		ctx.cc.gg.set_bg_color(c)
 	}
 }
 
@@ -118,7 +138,7 @@ pub fn (c &CC) text(msg string, x int, y int) {
 
 pub fn init(init_fn fn (voidptr)) {
 	mut ctx := context()
-	ctx.preferred_init_fn = init_fn
+	ctx.pref.init_fn = init_fn
 }
 
 pub fn run(frame_fn fn (voidptr)) {
