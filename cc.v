@@ -154,7 +154,7 @@ fn context() &CCContext {
 }
 
 // get gg context
-fn g() &gg.Context {
+pub fn g() &gg.Context {
 	mut ctx := context()
 	if unsafe { ctx.cc == nil } {
 		return unsafe {nil}
