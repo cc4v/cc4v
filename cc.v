@@ -24,11 +24,16 @@ fn context() &CCContext {
 	}
 }
 
+fn draw_context() &CCContext {
+	// WORKAROUND
+	return context()
+}
+
 fn cleanup() {
 
 }
 
-fn size(w int, h int) {
+pub fn size(w int, h int) {
 	mut ctx := context()
 	if unsafe { ctx.cc == nil } {
 		ctx.preferred_size = vec.vec2[int](w, h)
@@ -37,10 +42,14 @@ fn size(w int, h int) {
 	}
 }
 
-fn begin() {
+pub fn text(msg string, x f32, y f32) {
+	mut ctx := draw_context()
+}
+
+pub fn begin() {
 	mut ctx := context()
 }
 
-fn end() {
+pub fn end() {
 	mut ctx := context()
 }
