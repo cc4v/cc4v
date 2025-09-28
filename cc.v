@@ -182,24 +182,6 @@ pub fn set_data_new[T]() {
 	}
 }
 
-pub fn size(w int, h int) {
-	mut ctx := context()
-	if unsafe { ctx.cc == nil } {
-		ctx.pref.size = vec.vec2[int](w, h)
-	}else{
-		ctx.cc.gg.resize(w, h)
-	}
-}
-
-pub fn background(c gg.Color) {
-	mut ctx := context()
-	if unsafe { ctx.cc == nil } {
-		ctx.pref.bg_color = c
-	}else{
-		ctx.cc.gg.set_bg_color(c)
-	}
-}
-
 pub fn on_init(init_fn fn (voidptr)) {
 	mut ctx := context()
 	ctx.pref.init_fn = init_fn
