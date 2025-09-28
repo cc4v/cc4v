@@ -15,7 +15,7 @@ pub mut:
 pub struct CC {
 mut:
 	config CCConfig
-	app_ptr voidptr
+	data_ptr voidptr
 
 pub mut:
 	gg &gg.Context = unsafe { nil }
@@ -45,12 +45,12 @@ fn (c &CC) frame(mut _ CC) {
 	c.gg.end()
 }
 
-pub fn (c &CC) app[T]() &T {
-	return unsafe { c.app_ptr }
+pub fn (c &CC) data[T]() &T {
+	return unsafe { c.data_ptr }
 }
 
-pub fn (mut c CC) set_app(ptr voidptr) {
-	c.app_ptr = ptr
+pub fn (mut c CC) set_data(ptr voidptr) {
+	c.data_ptr = ptr
 }
 
 fn (mut c CC) cleanup() {
