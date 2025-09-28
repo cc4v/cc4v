@@ -23,7 +23,7 @@ pub mut:
 
 // ----------------
 
-struct Preference {
+struct InitialPreference {
 mut:
 	size ?vec.Vec2[int]
 	init_fn ?gg.FNCb
@@ -34,7 +34,7 @@ mut:
 struct CCContext {
 mut:
 	cc &CC = unsafe { nil }
-	pref Preference
+	pref InitialPreference
 }
 
 fn (c &CC) init(mut _ CC) {
