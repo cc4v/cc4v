@@ -16,8 +16,8 @@ pub fn pop_matrix() {
 	sgl.pop_matrix()
 }
 
-fn set_style(style &CCStyle, mut ctx CCContext) {
-	ctx.cc.current_style = style
+fn set_style(style &CCStyle, mut c CC) {
+	c.current_style = style
 }
 
 pub fn push_style() {
@@ -40,7 +40,7 @@ pub fn pop_style() {
 	if unsafe { ctx.cc == nil } {
 		if ctx.cc.style_history.len() > 0 {
 			style := ctx.cc.style_history.pop() or { panic(err) }
-			set_style(style, mut ctx)
+			set_style(style, mut ctx.cc)
 		}
 	}
 }
