@@ -3,31 +3,54 @@ module cc
 import math.vec
 import gg
 
-struct CCConfig {
+pub struct CCConfig {
+pub mut:
+	init_fn ?gg.FNCb
 	frame_fn ?gg.FNCb
 }
 
+// ---------------
+
 @[heap]
 pub struct CC {
+mut:
 	config CCConfig
+	app_ptr voidptr
 
 pub mut:
 	gg &gg.Context = unsafe { nil }
 }
+
+// ----------------
 
 @[heap]
 struct CCContext {
 mut:
 	cc &CC = unsafe { nil }
 	preferred_size ?vec.Vec2[int]
+	preferred_init_fn ?gg.FNCb
 }
 
-fn (mut c CC) frame(mut _ CC) {
+fn (c &CC) init(mut _ CC) {
+	if c.config.init_fn != none {
+		c.config.init_fn(c)
+	}
+}
+
+fn (c &CC) frame(mut _ CC) {
 	c.gg.begin()
 	if c.config.frame_fn != none {
 		c.config.frame_fn(c)
 	}
 	c.gg.end()
+}
+
+pub fn (c &CC) app[T]() &T {
+	return unsafe { c.app_ptr }
+}
+
+pub fn (mut c CC) set_app(ptr voidptr) {
+	c.app_ptr = ptr
 }
 
 fn (mut c CC) cleanup() {
@@ -48,12 +71,17 @@ fn setup(config CCConfig) {
 		h = ctx.preferred_size.y
 	}
 
+	if c.config.init_fn == none && ctx.preferred_init_fn != none {
+		c.config.init_fn = ctx.preferred_init_fn
+	}
+
 	c.gg = gg.new_context(
 		bg_color:      gg.white
 		width:         w
 		height:        h
 		create_window: true
 		window_title:  'Canvas'
+		init_fn:      c.init
 		frame_fn:      c.frame
 		cleanup_fn:    c.cleanup
 		user_data:     c
@@ -77,10 +105,6 @@ fn context() &CCContext {
 	}
 }
 
-fn init(mut c CC) {
-
-}
-
 pub fn size(w int, h int) {
 	mut ctx := context()
 	if unsafe { ctx.cc == nil } {
@@ -92,6 +116,11 @@ pub fn size(w int, h int) {
 
 pub fn (c &CC) text(msg string, x int, y int) {
 	c.gg.draw_text_def(x, y, msg)
+}
+
+pub fn init(init_fn fn (voidptr)) {
+	mut ctx := context()
+	ctx.preferred_init_fn = init_fn
 }
 
 pub fn run(frame_fn fn (voidptr)) {
