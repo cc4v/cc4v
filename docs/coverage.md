@@ -16,11 +16,14 @@
 ## [Color](../color.v)
 
 - background
+- set_color
 
 ## [Push/Pop](../push_pop.v)
 
 - push_matrix
 - pop_matrix
+- push_style
+- pop_style
 
 ## Shape
 

@@ -2,6 +2,7 @@ module cc
 
 import math.vec
 import gg
+import datatypes
 
 pub struct CCConfig {
 pub mut:
@@ -12,12 +13,25 @@ pub mut:
 	user_data voidptr
 }
 
+// CCStyle Reference: https://github.com/openframeworks/openFrameworks/blob/996f7880bc250254480561a2f2dab3554a830084/libs/openFrameworks/graphics/ofGraphicsBaseTypes.h
+
+struct CCStyle {
+mut:
+	color gg.Color = gg.black
+	fill bool = true
+	circle_resolution int = 20
+	sphere_resolution int = 20
+	curve_resolution int = 20
+}
+
 // ---------------
 
 @[heap]
 pub struct CC {
 mut:
 	config CCConfig
+	current_style CCStyle
+	style_history datatypes.Stack[CCStyle]
 
 pub mut:
 	gg &gg.Context = unsafe { nil }
