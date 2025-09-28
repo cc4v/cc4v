@@ -81,7 +81,7 @@ fn setup(config CCConfig) {
 		height:        h
 		create_window: true
 		window_title:  'Canvas'
-		init_fn:      c.init
+		init_fn:       c.init
 		frame_fn:      c.frame
 		cleanup_fn:    c.cleanup
 		user_data:     c
