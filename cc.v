@@ -140,6 +140,10 @@ pub fn (c &CC) text(msg string, x int, y int) {
 	c.gg.draw_text_def(x, y, msg)
 }
 
+pub fn (c &CC) draw_text(msg string, x int, y int, cfg gg.TextCfg) {
+	c.gg.draw_text(x, y, msg, cfg)
+}
+
 pub fn init(init_fn fn (voidptr)) {
 	mut ctx := context()
 	ctx.pref.init_fn = init_fn
