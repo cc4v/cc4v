@@ -6,7 +6,10 @@ import gg
 pub struct CCConfig {
 pub mut:
 	init_fn ?gg.FNCb
-	frame_fn ?gg.FNCb
+	update_fn ?gg.FNCb
+	draw_fn ?gg.FNCb
+	cleanup_fn ?gg.FNCb
+	user_data voidptr
 }
 
 // ---------------
@@ -15,7 +18,6 @@ pub mut:
 pub struct CC {
 mut:
 	config CCConfig
-	data_ptr voidptr
 
 pub mut:
 	gg &gg.Context = unsafe { nil }
@@ -27,7 +29,9 @@ struct InitialPreference {
 mut:
 	size ?vec.Vec2[int]
 	init_fn ?gg.FNCb
+	cleanup_fn ?gg.FNCb
 	bg_color ?gg.Color
+	user_data voidptr
 }
 
 @[heap]
@@ -37,41 +41,52 @@ mut:
 	pref InitialPreference
 }
 
-fn (c &CC) init(mut _ CC) {
+fn (mut c CC) init(_ voidptr) {
 	if c.config.init_fn != none {
-		c.config.init_fn(c.data_ptr)
+		c.config.init_fn(c.config.user_data)
 	}
 }
 
-fn (c &CC) frame(mut _ CC) {
+fn (mut c CC) frame(_ voidptr) {
+	if c.config.update_fn != none {
+		c.config.update_fn(c.config.user_data)
+	}
+
 	c.gg.begin()
-	if c.config.frame_fn != none {
-		c.config.frame_fn(c.data_ptr)
+	if c.config.draw_fn != none {
+		c.config.draw_fn(c.config.user_data)
 	}
 	c.gg.end()
 }
 
 pub fn (c &CC) data[T]() &T {
-	return unsafe { c.data_ptr }
+	return unsafe { c.config.user_data }
 }
 
-pub fn (mut c CC) set_data(ptr voidptr) {
-	c.data_ptr = ptr
+pub fn (mut c CC) set_data(user_data_ptr voidptr) {
+	c.config.user_data = user_data_ptr
 }
 
-fn (mut c CC) cleanup() {
+fn (mut c CC) cleanup(d voidptr) {
+	if c.config.cleanup_fn != none {
+		c.config.cleanup_fn(c.config.user_data)
+	}
 }
 
 fn setup(config CCConfig) {
 	mut ctx := context()
 
+	mut w := 400
+	mut h := 400
+	mut bg_color := gg.white
+
 	mut c := &CC{
 		config: config
 	}
 
-	mut w := 400
-	mut h := 400
-	mut bg_color := gg.white
+	if unsafe { ctx.pref.user_data != nil } && unsafe { c.config.user_data == nil } {
+		c.config.user_data = ctx.pref.user_data
+	}
 
 	if ctx.pref.size != none {
 		w = ctx.pref.size.x
@@ -86,6 +101,10 @@ fn setup(config CCConfig) {
 		c.config.init_fn = ctx.pref.init_fn
 	}
 
+	if c.config.cleanup_fn == none && ctx.pref.cleanup_fn != none {
+		c.config.cleanup_fn = ctx.pref.cleanup_fn
+	}
+
 	c.gg = gg.new_context(
 		bg_color:      bg_color
 		width:         w
@@ -95,12 +114,32 @@ fn setup(config CCConfig) {
 		init_fn:       c.init
 		frame_fn:      c.frame
 		cleanup_fn:    c.cleanup
-		user_data:     c
+		user_data:     c.config.user_data
 	)
 
 	ctx.cc = c
 
 	c.gg.run()
+}
+
+fn setup_app(mut app IApp, user_data voidptr) {
+	mut config := CCConfig {
+		init_fn: fn [mut app] (_ voidptr) {
+			app.setup()
+		}
+		update_fn: fn [mut app] (_ voidptr) {
+			app.update()
+		}
+		draw_fn: fn [mut app] (_ voidptr) {
+			app.draw()
+		}
+		cleanup_fn: fn [mut app] (_ voidptr) {
+			app.exit()
+		}
+		user_data: user_data
+	}
+
+	setup(config)
 }
 
 // get context
@@ -156,13 +195,36 @@ pub fn draw_text(msg string, x int, y int, cfg gg.TextCfg) {
 	}
 }
 
-pub fn init(init_fn fn (voidptr)) {
+pub fn on_init(init_fn fn (voidptr)) {
 	mut ctx := context()
 	ctx.pref.init_fn = init_fn
 }
 
-pub fn run(frame_fn fn (voidptr)) {
+pub fn on_exit(exit_fn fn (voidptr)) {
+	mut ctx := context()
+	ctx.pref.cleanup_fn = exit_fn
+}
+
+pub fn run(draw_fn fn (voidptr)) {
 	setup(CCConfig {
-		frame_fn: frame_fn
+		draw_fn: draw_fn
 	})
+}
+
+pub fn run_new[T](draw_fn fn (voidptr)){
+	setup(CCConfig {
+		draw_fn: draw_fn,
+		user_data: &T{}
+	})
+}
+
+pub fn run_app[T](mut app T) {
+	setup_app(mut app, app)
+}
+
+pub fn run_app_new[T](){
+	unsafe {
+		mut app := &T{}
+		setup_app(mut app, app)
+	}
 }
