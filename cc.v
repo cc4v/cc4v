@@ -67,7 +67,7 @@ pub fn (mut c CC) set_data(user_data_ptr voidptr) {
 	c.config.user_data = user_data_ptr
 }
 
-fn (mut c CC) cleanup(d voidptr) {
+fn (mut c CC) cleanup(_ voidptr) {
 	if c.config.cleanup_fn != none {
 		c.config.cleanup_fn(c.config.user_data)
 	}
@@ -160,6 +160,25 @@ pub fn g() &gg.Context {
 		return unsafe {nil}
 	}else{
 		return ctx.cc.gg
+	}
+}
+
+pub fn set_data(dat voidptr) {
+	mut ctx := context()
+	if unsafe { ctx.cc == nil } {
+		ctx.pref.user_data = dat
+	}else{
+		ctx.cc.set_data(dat)
+	}
+}
+
+pub fn set_data_new[T]() {
+	mut ctx := context()
+	mut dat := &T{}
+	if unsafe { ctx.cc == nil } {
+		ctx.pref.user_data = dat
+	}else{
+		ctx.cc.set_data(dat)
 	}
 }
 
