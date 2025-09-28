@@ -5,17 +5,17 @@
 - processing style ([example](https://github.com/cc4v/cc4v-examples/blob/main/hello_world/main.v))
 - openFrameworks style ([example](https://github.com/cc4v/cc4v-examples/blob/main/hello_world3/main.v))
 
-## Window
+## [Window](../window.v)
 
 - size
 
-## Color
+## [Color](../color.v)
 
 - background
 
 ## Shape
 
-## Text
+## [Text](../text.v)
 
 - text
 - draw_text
