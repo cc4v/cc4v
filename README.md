@@ -1,6 +1,8 @@
 # cc4v
 
-***WORK IN PROGRESS*** (see [docs/coverage.md](docs/coverage.md))
+> [!WARNING]
+> ***WORK IN PROGRESS*** (Currently at very early stage)<br>
+> (see [docs/coverage.md](docs/coverage.md))
 
 creative coding framework on [V](https://vlang.io/)
 
