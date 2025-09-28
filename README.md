@@ -4,6 +4,8 @@
 
 creative coding framework for [V](https://vlang.io/)
 
+Aims to provide APIs like [openFrameworks](https://openframeworks.cc/documentation/) or [Processing](https://processing.org/reference) on V / [gg](https://modules.vlang.io/gg.html), with a little essence of [Ebitengine](https://ebitengine.org/).
+
 ## Install
 
 ```bash
