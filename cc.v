@@ -128,8 +128,12 @@ pub fn background(c gg.Color) {
 	if unsafe { ctx.cc == nil } {
 		ctx.pref.bg_color = c
 	}else{
-		ctx.cc.gg.set_bg_color(c)
+		ctx.cc.background(c)
 	}
+}
+
+pub fn (mut c CC) background(col gg.Color) {
+	c.gg.set_bg_color(col)
 }
 
 pub fn (c &CC) text(msg string, x int, y int) {
