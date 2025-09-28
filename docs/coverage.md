@@ -2,7 +2,7 @@
 
 ## Coding Style (Application)
 
-- processing style ([example](https://github.com/cc4v/cc4v-examples/blob/main/hello_world/main.v))
+- processing style ([example](https://github.com/cc4v/cc4v-examples/blob/main/hello_world/main.v), [example2](https://github.com/cc4v/cc4v-examples/blob/main/hello_world2/main.v))
 - openFrameworks style ([example](https://github.com/cc4v/cc4v-examples/blob/main/hello_world3/main.v))
 
 ## gg interop
