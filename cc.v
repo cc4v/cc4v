@@ -41,6 +41,11 @@ mut:
 	pref InitialPreference
 }
 
+
+// ----------------
+// ----------------
+
+
 fn (mut c CC) init(_ voidptr) {
 	if c.config.init_fn != none {
 		c.config.init_fn(c.config.user_data)
