@@ -90,8 +90,6 @@ fn setup(config CCConfig) {
 	ctx.cc = c
 
 	c.gg.run()
-
-	// return ctx.cc
 }
 
 // get context
