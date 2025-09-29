@@ -61,7 +61,7 @@ mut:
 
 
 fn (mut c CC) init(_ voidptr) {
-	set_style(c.current_style, mut c)
+	c.apply_style()
 
 	if c.config.init_fn != none {
 		c.config.init_fn(c.config.user_data)

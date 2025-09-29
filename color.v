@@ -15,6 +15,7 @@ pub fn set_color(c gg.Color){
 	mut ctx := context()
 	if unsafe { ctx.cc != nil } {
 		ctx.cc.current_style.color = c
+		ctx.cc.apply_style()
 	}
 }
 
