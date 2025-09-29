@@ -2,7 +2,7 @@
 // https://github.com/openframeworks/openFrameworks/blob/996f7880bc250254480561a2f2dab3554a830084/libs/openFrameworks/gl/ofGLProgrammableRenderer.cpp
 
 module cc
-// import gg
+import gg
 import sokol.sgl
 import log
 
@@ -17,7 +17,11 @@ pub fn pop_matrix() {
 }
 
 fn (mut c CC) apply_style() {
-	// do something here
+	mut style := &c.current_style
+	style.text_config = gg.TextCfg{
+		...style.text_config
+		color: style.color
+	}
 }
 
 fn (mut c CC) set_style(style &CCStyle) {

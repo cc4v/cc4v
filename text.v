@@ -1,14 +1,26 @@
 module cc
 import gg
 
-pub fn text(msg string, x f32, y f32) {
+pub fn text_size(size int) {
 	mut ctx := context()
 	if unsafe { ctx.cc != nil } {
-		ctx.cc.gg.draw_text_def(int(x), int(y), msg)
+		text_cfg := ctx.cc.current_style.text_config
+		ctx.cc.current_style.text_config = gg.TextCfg{
+			...text_cfg,
+			size: size
+		}
+		// ctx.cc.apply_style()
 	}
 }
 
-pub fn draw_text(msg string, x f32, y f32, cfg gg.TextCfg) {
+pub fn text(msg string, x f32, y f32) {
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		draw_text(msg, x, y, ctx.cc.current_style.text_config)
+	}
+}
+
+fn draw_text(msg string, x f32, y f32, cfg gg.TextCfg) {
 	mut ctx := context()
 	if unsafe { ctx.cc != nil } {
 		ctx.cc.gg.draw_text(int(x), int(y), msg, cfg)

@@ -6,22 +6,23 @@ import datatypes
 
 pub struct CCConfig {
 pub mut:
-	init_fn ?gg.FNCb
-	update_fn ?gg.FNCb
-	draw_fn ?gg.FNCb
-	cleanup_fn ?gg.FNCb
-	user_data voidptr
+	init_fn      ?gg.FNCb
+	update_fn    ?gg.FNCb
+	draw_fn      ?gg.FNCb
+	cleanup_fn   ?gg.FNCb
+	user_data    voidptr
 }
 
 // CCStyle Reference: https://github.com/openframeworks/openFrameworks/blob/996f7880bc250254480561a2f2dab3554a830084/libs/openFrameworks/graphics/ofGraphicsBaseTypes.h
 
 struct CCStyle {
 mut:
-	color gg.Color = gg.black
-	fill bool = true
+	color             gg.Color = gg.black
+	text_config       gg.TextCfg
+	fill              bool = true
 	circle_resolution int = 20
 	sphere_resolution int = 20
-	curve_resolution int = 20
+	curve_resolution  int = 20
 }
 
 // ---------------
@@ -29,7 +30,7 @@ mut:
 @[heap]
 pub struct CC {
 mut:
-	config CCConfig
+	config        CCConfig
 	current_style CCStyle
 	style_history datatypes.Stack[CCStyle]
 
@@ -41,17 +42,17 @@ pub mut:
 
 struct InitialPreference {
 mut:
-	size ?vec.Vec2[int]
-	init_fn ?gg.FNCb
+	size       ?vec.Vec2[int]
+	init_fn    ?gg.FNCb
 	cleanup_fn ?gg.FNCb
-	bg_color ?gg.Color
-	user_data voidptr
+	bg_color   ?gg.Color
+	user_data  voidptr
 }
 
 @[heap]
 struct CCContext {
 mut:
-	cc &CC = unsafe { nil }
+	cc   &CC = unsafe { nil }
 	pref InitialPreference
 }
 

@@ -33,4 +33,4 @@
 ## [Text](../text.v)
 
 - text
-- draw_text
+- text_size
