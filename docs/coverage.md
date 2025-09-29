@@ -17,6 +17,7 @@
 
 - background
 - set_color
+- get_color
 
 ## [Push/Pop](../push_pop.v)
 
