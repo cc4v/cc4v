@@ -1,4 +1,4 @@
-cc4v is released under [MPL-2.0](LICENSE_MPL2.md).
+cc4v is released under [MPL-2.0](LICENSE_MPL2).
 
 Some code bases reference [openFrameworks source code](https://github.com/openframeworks/openFrameworks), and [Processing API Reference](https://processing.org/reference/) (for API naming rules and calling conventions), in order to keep compatibility. And affected by [Ebitengine (v2)](https://github.com/hajimehoshi/ebiten)
 
