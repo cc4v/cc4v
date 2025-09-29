@@ -13,8 +13,8 @@
 
 - size ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/window_title/main.v))
 - title ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/window_title/main.v))
-- mouse_x
-- mouse_y
+- mouse_x ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/circle/main.v))
+- mouse_y ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/circle/main.v))
 - mouse_dx
 - mouse_dy
 - mouse_buttons
