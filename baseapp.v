@@ -3,6 +3,7 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 module cc
+import gg
 
 pub struct BaseApp {
 }
@@ -10,6 +11,7 @@ pub struct BaseApp {
 fn (mut app BaseApp) setup() {}
 fn (mut app BaseApp) update() {}
 fn (mut app BaseApp) draw() {}
+fn (mut app BaseApp) on_event(event &gg.Event) {}
 fn (mut app BaseApp) exit() {}
 
 interface IApp {
@@ -17,5 +19,6 @@ mut:
 	setup()
 	update()
 	draw()
+	on_event(&gg.Event)
 	exit()
 }

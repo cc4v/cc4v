@@ -14,6 +14,7 @@ pub mut:
 	update_fn    ?gg.FNCb
 	draw_fn      ?gg.FNCb
 	cleanup_fn   ?gg.FNCb
+	event_fn     ?gg.FNEvent
 	user_data    voidptr
 }
 
@@ -49,6 +50,7 @@ mut:
 	size       ?vec.Vec2[int]
 	init_fn    ?gg.FNCb
 	cleanup_fn ?gg.FNCb
+	event_fn   ?gg.FNEvent
 	bg_color   ?gg.Color
 	title      string = "Canvas"
 	user_data  voidptr
@@ -88,6 +90,12 @@ fn (mut c CC) frame(_ voidptr) {
 	pop_style()
 	pop_matrix()
 	c.gg.end()
+}
+
+fn (mut c CC) on_event(event &gg.Event, _ voidptr) {
+	if c.config.event_fn != none {
+		c.config.event_fn(event, c.config.user_data)
+	}
 }
 
 pub fn (c &CC) data[T]() &T {
@@ -136,6 +144,11 @@ fn setup(config CCConfig) {
 		c.config.cleanup_fn = ctx.pref.cleanup_fn
 	}
 
+	if c.config.event_fn == none && ctx.pref.event_fn != none {
+		c.config.event_fn = ctx.pref.event_fn
+	}
+
+
 	c.gg = gg.new_context(
 		bg_color:      bg_color
 		width:         w
@@ -145,6 +158,7 @@ fn setup(config CCConfig) {
 		init_fn:       c.init
 		frame_fn:      c.frame
 		cleanup_fn:    c.cleanup
+		event_fn:      c.on_event
 		user_data:     c.config.user_data
 	)
 
@@ -166,6 +180,9 @@ fn setup_app(mut app IApp, user_data voidptr) {
 		}
 		cleanup_fn: fn [mut app] (_ voidptr) {
 			app.exit()
+		}
+		event_fn: fn [mut app] (ev &gg.Event, _ voidptr) {
+			app.on_event(ev)
 		}
 		user_data: user_data
 	}
@@ -216,6 +233,11 @@ pub fn set_data_new[T]() {
 pub fn on_init(init_fn fn (voidptr)) {
 	mut ctx := context()
 	ctx.pref.init_fn = init_fn
+}
+
+pub fn on_event(event_fn fn (&gg.Event, voidptr)) {
+	mut ctx := context()
+	ctx.pref.event_fn = event_fn
 }
 
 pub fn on_exit(exit_fn fn (voidptr)) {
