@@ -23,6 +23,30 @@ pub fn set_color(c gg.Color){
 	}
 }
 
+pub fn set_circle_resolution(resolution int){
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		ctx.cc.current_style.circle_resolution = resolution
+		ctx.cc.apply_style()
+	}
+}
+
+pub fn set_curve_resolution(resolution int){
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		ctx.cc.current_style.curve_resolution = resolution
+		ctx.cc.apply_style()
+	}
+}
+
+pub fn set_sphere_resolution(resolution int){
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		ctx.cc.current_style.sphere_resolution = resolution
+		ctx.cc.apply_style()
+	}
+}
+
 pub fn get_color() gg.Color {
 	mut ctx := context()
 	if unsafe { ctx.cc != nil } {
