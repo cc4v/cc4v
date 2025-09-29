@@ -24,9 +24,9 @@ mut:
 	color             gg.Color = gg.black
 	text_config       gg.TextCfg
 	fill              bool = true
-	circle_resolution int = 20
-	sphere_resolution int = 20
-	curve_resolution  int = 20
+	circle_resolution int = 32
+	sphere_resolution int = 32
+	curve_resolution  int = 32
 }
 
 // ---------------

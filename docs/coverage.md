@@ -32,6 +32,7 @@
 
 - rect ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/color_rect/main.v))
 - rounded_rect
+- circle
 
 ## [Text](../text.v)
 

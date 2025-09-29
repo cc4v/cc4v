@@ -28,3 +28,16 @@ pub fn rounded_rect(x f32, y f32, w f32, h f32, radius f32) {
 		}
 	}
 }
+
+pub fn circle(x f32, y f32, radius f32) {
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		col := ctx.cc.current_style.color
+		segments := ctx.cc.current_style.circle_resolution
+		if ctx.cc.current_style.fill {
+			ctx.cc.gg.draw_circle_with_segments(x, y, radius, segments, col)
+		} else {
+			ctx.cc.gg.draw_circle_line(x, y, int(radius), segments, col)
+		}
+	}
+}
