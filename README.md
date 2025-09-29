@@ -33,4 +33,4 @@ $ v run ./hello_world
 
 Please check [docs/api_design.md](docs/api_design.md), [docs/coverage.md](docs/coverage.md), and [LICENSE.md](LICENSE.md).
 
-Feel free to create PR. If you have any questions or ideas, please use discussions instead of issues. Issues are only for task tracking.
+Feel free to create PR. If you have any questions or ideas, please use [discussions](https://github.com/cc4v/cc4v/discussions) instead of issues. Issues are only for task tracking.
