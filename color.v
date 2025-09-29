@@ -12,7 +12,7 @@ pub fn background(c gg.Color) {
 
 pub fn set_color(c gg.Color){
 	mut ctx := context()
-	if unsafe { ctx.cc == nil } {
+	if unsafe { ctx.cc != nil } {
 		ctx.cc.current_style.color = c
 	}
 }
