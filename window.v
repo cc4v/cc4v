@@ -4,7 +4,7 @@
 
 module cc
 import math.vec
-// import gg
+import gg
 
 pub fn size(w int, h int) {
 	mut ctx := context()
@@ -48,5 +48,32 @@ pub fn mouse_dy() int {
 		return ctx.cc.gg.mouse_dy
 	}else{
 		return 0 // WORKAROUND
+	}
+}
+
+pub fn scroll_x() int {
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		return ctx.cc.gg.scroll_x
+	}else{
+		return 0 // WORKAROUND
+	}
+}
+
+pub fn scroll_y() int {
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		return ctx.cc.gg.scroll_y
+	}else{
+		return 0 // WORKAROUND
+	}
+}
+
+pub fn mouse_buttons() gg.MouseButtons {
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		return ctx.cc.gg.mouse_buttons
+	}else{
+		return unsafe { gg.MouseButtons(0) } // WORKAROUND
 	}
 }

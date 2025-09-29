@@ -16,6 +16,9 @@
 - mouse_y
 - mouse_dx
 - mouse_dy
+- mouse_buttons
+- scroll_x
+- scroll_y
 
 ## [Color](../color.v)
 
