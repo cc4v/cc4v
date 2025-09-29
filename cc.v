@@ -75,9 +75,13 @@ fn (mut c CC) frame(_ voidptr) {
 	}
 
 	c.gg.begin()
+	push_matrix()
+	push_style()
 	if c.config.draw_fn != none {
 		c.config.draw_fn(c.config.user_data)
 	}
+	pop_style()
+	pop_matrix()
 	c.gg.end()
 }
 

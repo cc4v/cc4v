@@ -18,6 +18,8 @@
 - background
 - set_color
 - get_color
+- fill
+- no_fill
 
 ## [Push/Pop](../push_pop.v)
 

@@ -28,3 +28,19 @@ pub fn get_color() gg.Color {
 		panic("cc: failed to get color")
 	}
 }
+
+pub fn fill(){
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		ctx.cc.current_style.fill = true
+		// ctx.cc.apply_style()
+	}
+}
+
+pub fn no_fill(){
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		ctx.cc.current_style.fill = false
+		// ctx.cc.apply_style()
+	}
+}
