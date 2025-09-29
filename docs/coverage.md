@@ -12,6 +12,10 @@
 ## [Window](../window.v)
 
 - size
+- mouse_x
+- mouse_y
+- mouse_dx
+- mouse_dy
 
 ## [Color](../color.v)
 

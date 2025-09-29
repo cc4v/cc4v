@@ -14,3 +14,39 @@ pub fn size(w int, h int) {
 		ctx.cc.gg.resize(w, h)
 	}
 }
+
+pub fn mouse_x() int {
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		return ctx.cc.gg.mouse_pos_x
+	}else{
+		return 0 // WORKAROUND
+	}
+}
+
+pub fn mouse_y() int {
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		return ctx.cc.gg.mouse_pos_y
+	}else{
+		return 0 // WORKAROUND
+	}
+}
+
+pub fn mouse_dx() int {
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		return ctx.cc.gg.mouse_dx
+	}else{
+		return 0 // WORKAROUND
+	}
+}
+
+pub fn mouse_dy() int {
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		return ctx.cc.gg.mouse_dy
+	}else{
+		return 0 // WORKAROUND
+	}
+}
