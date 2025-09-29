@@ -12,6 +12,7 @@
 ## [Window](../window.v)
 
 - size
+- title
 - mouse_x
 - mouse_y
 - mouse_dx
