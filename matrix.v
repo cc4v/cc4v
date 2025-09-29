@@ -17,3 +17,11 @@ pub fn translate(x f32, y f32, z f32) {
 pub fn rotate(angle_rad f32, x f32, y f32, z f32) {
 	sgl.rotate(angle_rad, x, y, z)
 }
+
+pub fn rad(deg f32) f32 {
+	return sgl.rad(deg)
+}
+
+pub fn deg(rad f32) f32 {
+	return sgl.deg(rad)
+}

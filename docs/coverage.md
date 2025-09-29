@@ -33,6 +33,8 @@
 - scale
 - translate
 - rotate
+- rad
+- deg
 
 ## [Shape](../shape.v)
 
