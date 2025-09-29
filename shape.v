@@ -37,6 +37,18 @@ pub fn rounded_rect(x f32, y f32, w f32, h f32, radius f32) {
 	}
 }
 
+pub fn square(x f32, y f32, s f32) {
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		col := ctx.cc.current_style.color
+		if ctx.cc.current_style.fill {
+			ctx.cc.gg.draw_square_filled(x, y, s, col)
+		} else {
+			ctx.cc.gg.draw_square_empty(x, y, s, col)
+		}
+	}
+}
+
 pub fn circle(x f32, y f32, radius f32) {
 	mut ctx := context()
 	if unsafe { ctx.cc != nil } {
