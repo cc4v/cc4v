@@ -5,6 +5,14 @@
 module cc
 // import gg
 
+pub fn line(x1 f32, y1 f32, x2 f32, y2 f32) {
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		col := ctx.cc.current_style.color
+		ctx.cc.gg.draw_rect_filled(x1, y1, x2, y2, col)
+	}
+}
+
 pub fn rect(x f32, y f32, w f32, h f32) {
 	mut ctx := context()
 	if unsafe { ctx.cc != nil } {
