@@ -11,8 +11,8 @@
 
 ## [Window](../window.v)
 
-- size
-- title
+- size ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/window_title/main.v))
+- title ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/window_title/main.v))
 - mouse_x
 - mouse_y
 - mouse_dx
