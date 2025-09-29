@@ -25,7 +25,9 @@
 - push_style
 - pop_style
 
-## Shape
+## [Shape](../shape.v)
+
+- rect
 
 ## [Text](../text.v)
 
