@@ -18,7 +18,7 @@ $ git clone https://github.com/cc4v/cc4v ~/.vmodules/cc
 
 ## Examples
 
-see [cc4v-examples](https://github.com/cc4v/cc4v-examples).
+see [cc4v-examples](https://github.com/cc4v/cc4v-examples) and [docs/coverage.md](docs/coverage.md).
 
 ```bash
 # NOTE: You should not use ~/.vmodules for this clone
