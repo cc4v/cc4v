@@ -28,3 +28,9 @@ $ git clone https://github.com/cc4v/cc4v-examples
 $ cd cc4v-examples
 $ v run ./hello_world
 ```
+
+## Contribution
+
+Please check [docs/api_design.md](docs/api_design.md), [docs/coverage.md](docs/coverage.md), and [LICENSE.md](LICENSE.md).
+
+Feel free to create PR. If you have any questions, please use discussions instead of issues. Issues are only for task tracking.
