@@ -16,10 +16,10 @@
 ## [Color](../color.v)
 
 - background
-- set_color
+- set_color ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/color_rect/main.v))
 - get_color
-- fill
-- no_fill
+- fill ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/color_rect/main.v))
+- no_fill ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/color_rect/main.v))
 
 ## [Push/Pop](../push_pop.v)
 
@@ -30,9 +30,9 @@
 
 ## [Shape](../shape.v)
 
-- rect
+- rect ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/color_rect/main.v))
 
 ## [Text](../text.v)
 
-- text
-- text_size
+- text ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/color_text/main.v))
+- text_size ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/color_text/main.v))
