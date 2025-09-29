@@ -15,6 +15,15 @@ pub fn size(w int, h int) {
 	}
 }
 
+pub fn title(str string) {
+	mut ctx := context()
+	if unsafe { ctx.cc == nil } {
+		ctx.pref.title = str
+	}else{
+		gg.set_window_title(str)
+	}
+}
+
 pub fn mouse_x() int {
 	mut ctx := context()
 	if unsafe { ctx.cc != nil } {

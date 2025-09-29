@@ -50,6 +50,7 @@ mut:
 	init_fn    ?gg.FNCb
 	cleanup_fn ?gg.FNCb
 	bg_color   ?gg.Color
+	title      string = "Canvas"
 	user_data  voidptr
 }
 
@@ -140,7 +141,7 @@ fn setup(config CCConfig) {
 		width:         w
 		height:        h
 		create_window: true
-		window_title:  'Canvas'
+		window_title:  ctx.pref.title
 		init_fn:       c.init
 		frame_fn:      c.frame
 		cleanup_fn:    c.cleanup
