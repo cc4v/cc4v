@@ -28,6 +28,12 @@
 - push_style
 - pop_style
 
+## [Matrix](../matrix.v)
+
+- scale
+- translate
+- rotate
+
 ## [Shape](../shape.v)
 
 - rect ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/color_rect/main.v))
