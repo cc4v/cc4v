@@ -24,7 +24,7 @@ pub fn push_style() {
 	sgl.push_pipeline()
 
 	mut ctx := context()
-	if unsafe { ctx.cc == nil } {
+	if unsafe { ctx.cc != nil } {
 		ctx.cc.style_history.push(ctx.cc.current_style)
 		if ctx.cc.style_history.len() > cc_max_style_history {
 			ctx.cc.style_history.pop() or { panic(err) }
@@ -37,7 +37,7 @@ pub fn pop_style() {
 	sgl.pop_pipeline()
 
 	mut ctx := context()
-	if unsafe { ctx.cc == nil } {
+	if unsafe { ctx.cc != nil } {
 		if ctx.cc.style_history.len() > 0 {
 			style := ctx.cc.style_history.pop() or { panic(err) }
 			set_style(style, mut ctx.cc)
