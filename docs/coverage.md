@@ -27,9 +27,13 @@
 - mouse_button
 - mouse_pressed
 - mouse_released
+- mouse_just_pressed
+- mouse_just_released
 - key ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/key_pressed/main.v))
 - key_pressed ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/key_pressed/main.v))
 - key_released
+- key_just_pressed ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/key_just_pressed/main.v))
+- key_just_released
 - scroll_x
 - scroll_y
 
