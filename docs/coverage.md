@@ -24,6 +24,12 @@
 - mouse_dx
 - mouse_dy
 - mouse_buttons
+- mouse_button
+- mouse_pressed
+- mouse_released
+- key
+- key_pressed
+- key_released
 - scroll_x
 - scroll_y
 

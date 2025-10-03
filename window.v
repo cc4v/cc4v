@@ -86,3 +86,57 @@ pub fn mouse_buttons() gg.MouseButtons {
 		return unsafe { gg.MouseButtons(0) } // WORKAROUND
 	}
 }
+
+pub fn mouse_button() gg.MouseButton {
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		return ctx.cc.last_mousebutton
+	}else{
+		return .invalid // WORKAROUND
+	}
+}
+
+pub fn mouse_pressed() bool {
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		return ctx.cc.last_mousedown
+	}else{
+		return false // WORKAROUND
+	}
+}
+
+pub fn mouse_released() bool {
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		return !ctx.cc.last_mousedown
+	}else{
+		return true // WORKAROUND
+	}
+}
+
+pub fn key() gg.KeyCode {
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		return ctx.cc.last_keycode
+	}else{
+		return .invalid // WORKAROUND
+	}
+}
+
+pub fn key_pressed() bool {
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		return ctx.cc.last_keydown
+	}else{
+		return false // WORKAROUND
+	}
+}
+
+pub fn key_released() bool {
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		return !ctx.cc.last_keydown
+	}else{
+		return true // WORKAROUND
+	}
+}

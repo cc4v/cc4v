@@ -35,9 +35,13 @@ mut:
 @[heap]
 pub struct CC {
 mut:
-	config        CCConfig
-	current_style CCStyle
-	style_history datatypes.Stack[CCStyle]
+	config         CCConfig
+	current_style  CCStyle
+	style_history  datatypes.Stack[CCStyle]
+	last_keycode   gg.KeyCode
+	last_keydown   bool
+	last_mousebutton   gg.MouseButton = .invalid
+	last_mousedown bool
 
 pub mut:
 	gg &gg.Context = unsafe { nil }
@@ -92,7 +96,32 @@ fn (mut c CC) frame(_ voidptr) {
 	c.gg.end()
 }
 
+fn (mut c CC) update_last_key(e &gg.Event) {
+	if e.typ == .key_down {
+		c.last_keydown = true
+	}
+	if e.typ == .key_up {
+		c.last_keydown = false
+	}
+	if e.typ == .mouse_down {
+		c.last_mousedown = true
+	}
+	if e.typ == .mouse_up {
+		c.last_mousedown = false
+	}
+
+	if e.typ == .key_down || e.typ == .key_up {
+		c.last_keycode = e.key_code
+	}
+
+	if e.typ == .mouse_down || e.typ == .mouse_up {
+		c.last_mousebutton = e.mouse_button
+	}
+}
+
 fn (mut c CC) on_event(event &gg.Event, _ voidptr) {
+	c.update_last_key(event)
+
 	if c.config.event_fn != none {
 		c.config.event_fn(event, c.config.user_data)
 	}
