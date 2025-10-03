@@ -39,9 +39,13 @@ mut:
 	current_style  CCStyle
 	style_history  datatypes.Stack[CCStyle]
 	last_keycode   gg.KeyCode
+	prev_keycode   gg.KeyCode
 	last_keydown   bool
+	prev_keydown   bool
 	last_mousebutton   gg.MouseButton = .invalid
+	prev_mousebutton   gg.MouseButton = .invalid
 	last_mousedown bool
+	prev_mousedown bool
 
 pub mut:
 	gg &gg.Context = unsafe { nil }
@@ -94,6 +98,15 @@ fn (mut c CC) frame(_ voidptr) {
 	pop_style()
 	pop_matrix()
 	c.gg.end()
+
+	c.update_prev_key()
+}
+
+fn (mut c CC) update_prev_key() {
+	c.prev_keycode = c.last_keycode
+	c.prev_keydown = c.last_keydown
+	c.prev_mousebutton = c.last_mousebutton
+	c.prev_mousedown = c.last_mousedown
 }
 
 fn (mut c CC) update_last_key(e &gg.Event) {
