@@ -77,6 +77,6 @@
 
 - load_image ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/image/main.v))
 - image ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/image/main.v))
-- image_with_size
+- image_with_size ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/image/main.v))
 - image_3d
 - image_3d_with_size
