@@ -11,9 +11,9 @@
 
 ## Function Callbacks (for Processing style)
 
-- on_init
-- on_event
-- on_exit
+- on_init ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/callbacks/main.v))
+- on_event ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/callbacks/main.v))
+- on_exit ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/callbacks/main.v))
 
 ## [Window](../window.v)
 
