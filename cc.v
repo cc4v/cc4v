@@ -19,6 +19,7 @@ pub mut:
 	keyup_fn     ?gg.FNKeyUp
 	click_fn     ?gg.FNClick
 	unclick_fn   ?gg.FNUnClick
+	move_fn      ?gg.FNMove
 	user_data    voidptr
 }
 
@@ -67,6 +68,7 @@ mut:
 	keyup_fn     ?gg.FNKeyUp
 	click_fn     ?gg.FNClick
 	unclick_fn   ?gg.FNUnClick
+	move_fn      ?gg.FNMove
 	bg_color     ?gg.Color
 	title        string = "Canvas"
 	fullscreen   bool
@@ -173,6 +175,12 @@ fn (mut c CC) on_unclick(x f32, y f32, button gg.MouseButton, _ voidptr) {
 	}
 }
 
+fn (mut c CC) on_move(x f32, y f32, _ voidptr) {
+	if c.config.move_fn != none {
+		c.config.move_fn(x, y, c.config.user_data)
+	}
+}
+
 pub fn (c &CC) data[T]() &T {
 	return unsafe { c.config.user_data }
 }
@@ -239,6 +247,10 @@ fn setup(config CCConfig) {
 		c.config.unclick_fn = ctx.pref.unclick_fn
 	}
 
+	if c.config.move_fn == none && ctx.pref.move_fn != none {
+		c.config.move_fn = ctx.pref.move_fn
+	}
+
 	c.gg = gg.new_context(
 		bg_color:      bg_color
 		width:         w
@@ -253,6 +265,7 @@ fn setup(config CCConfig) {
 		unclick_fn:    c.on_unclick
 		keyup_fn:      c.on_keyup
 		keydown_fn:    c.on_keydown
+		move_fn:       c.on_move
 		user_data:     c.config.user_data
 		fullscreen:    ctx.pref.fullscreen
 	)
@@ -290,6 +303,9 @@ fn setup_app(mut app IApp, user_data voidptr) {
 		}
 		unclick_fn: fn [mut app] (x f32, y f32, button gg.MouseButton, _ voidptr) {
 			app.mouse_released(x, y, button)
+		}
+		move_fn: fn [mut app] (x f32, y f32, _ voidptr) {
+			app.mouse_moved(x, y)
 		}
 		user_data: user_data
 	}
@@ -370,6 +386,11 @@ pub fn on_mouse_pressed(click_fn fn (f32, f32, gg.MouseButton, voidptr)) {
 pub fn on_mouse_released(unclick_fn fn (f32, f32, gg.MouseButton, voidptr)) {
 	mut ctx := context()
 	ctx.pref.unclick_fn = unclick_fn
+}
+
+pub fn on_mouse_moved(move_fn fn (f32, f32, voidptr)) {
+	mut ctx := context()
+	ctx.pref.move_fn = move_fn
 }
 
 pub fn run(draw_fn fn (voidptr)) {

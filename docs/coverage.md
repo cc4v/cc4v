@@ -18,6 +18,7 @@
 - on_key_released
 - on_mouse_pressed
 - on_mouse_released
+- on_mouse_moved
 
 ## [Window](../window.v)
 

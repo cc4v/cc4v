@@ -16,6 +16,7 @@ fn (mut app BaseApp) key_pressed(keycode gg.KeyCode, m gg.Modifier) {}
 fn (mut app BaseApp) key_released(keycode gg.KeyCode, m gg.Modifier) {}
 fn (mut app BaseApp) mouse_pressed(x f32, y f32, button gg.MouseButton) {}
 fn (mut app BaseApp) mouse_released(x f32, y f32, button gg.MouseButton) {}
+fn (mut app BaseApp) mouse_moved(x f32, y f32) {}
 fn (mut app BaseApp) exit() {}
 
 interface IApp {
@@ -28,5 +29,6 @@ mut:
 	key_released(gg.KeyCode, gg.Modifier)
 	mouse_pressed(f32, f32, gg.MouseButton)
 	mouse_released(f32, f32, gg.MouseButton)
+	mouse_moved(f32, f32)
 	exit()
 }
