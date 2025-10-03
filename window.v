@@ -184,3 +184,46 @@ pub fn key_just_released(keycode gg.KeyCode) bool {
 		return false // WORKAROUND
 	}
 }
+
+pub fn is_fullscreen() bool {
+	return gg.is_fullscreen()
+}
+
+pub fn toggle_fullscreen() {
+	gg.toggle_fullscreen()
+}
+
+pub fn fullscreen() {
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		gg.toggle_fullscreen()
+	}else{
+		ctx.pref.fullscreen = true
+	}
+}
+
+pub fn width() int {
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		return ctx.cc.gg.window_size().width
+	}else{
+		return gg.window_size().width
+	}
+}
+
+pub fn height() int {
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		return ctx.cc.gg.window_size().height
+	}else{
+		return gg.window_size().height
+	}
+}
+
+pub fn screen_width() int {
+	return gg.screen_size().width
+}
+
+pub fn screen_height() int {
+	return gg.screen_size().height
+}

@@ -36,6 +36,12 @@
 - key_just_released
 - scroll_x
 - scroll_y
+- width
+- height
+- screen_width
+- screen_height
+- fullscreen
+- is_fullscreen
 
 ## [Color](../color.v)
 

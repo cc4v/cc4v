@@ -61,6 +61,7 @@ mut:
 	event_fn   ?gg.FNEvent
 	bg_color   ?gg.Color
 	title      string = "Canvas"
+	fullscreen bool
 	user_data  voidptr
 }
 
@@ -202,6 +203,7 @@ fn setup(config CCConfig) {
 		cleanup_fn:    c.cleanup
 		event_fn:      c.on_event
 		user_data:     c.config.user_data
+		fullscreen:    ctx.pref.fullscreen
 	)
 
 	ctx.cc = c
