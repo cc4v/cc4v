@@ -12,6 +12,10 @@ fn (mut app BaseApp) setup() {}
 fn (mut app BaseApp) update() {}
 fn (mut app BaseApp) draw() {}
 fn (mut app BaseApp) on_event(event &gg.Event) {}
+fn (mut app BaseApp) key_pressed(keycode gg.KeyCode, m gg.Modifier) {}
+fn (mut app BaseApp) key_released(keycode gg.KeyCode, m gg.Modifier) {}
+fn (mut app BaseApp) mouse_pressed(x f32, y f32, button gg.MouseButton) {}
+fn (mut app BaseApp) mouse_released(x f32, y f32, button gg.MouseButton) {}
 fn (mut app BaseApp) exit() {}
 
 interface IApp {
@@ -20,5 +24,9 @@ mut:
 	update()
 	draw()
 	on_event(&gg.Event)
+	key_pressed(gg.KeyCode, gg.Modifier)
+	key_released(gg.KeyCode, gg.Modifier)
+	mouse_pressed(f32, f32, gg.MouseButton)
+	mouse_released(f32, f32, gg.MouseButton)
 	exit()
 }

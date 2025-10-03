@@ -15,6 +15,10 @@ pub mut:
 	draw_fn      ?gg.FNCb
 	cleanup_fn   ?gg.FNCb
 	event_fn     ?gg.FNEvent
+	keydown_fn   ?gg.FNKeyDown
+	keyup_fn     ?gg.FNKeyUp
+	click_fn     ?gg.FNClick
+	unclick_fn   ?gg.FNUnClick
 	user_data    voidptr
 }
 
@@ -55,14 +59,18 @@ pub mut:
 
 struct InitialPreference {
 mut:
-	size       ?vec.Vec2[int]
-	init_fn    ?gg.FNCb
-	cleanup_fn ?gg.FNCb
-	event_fn   ?gg.FNEvent
-	bg_color   ?gg.Color
-	title      string = "Canvas"
-	fullscreen bool
-	user_data  voidptr
+	size         ?vec.Vec2[int]
+	init_fn      ?gg.FNCb
+	cleanup_fn   ?gg.FNCb
+	event_fn     ?gg.FNEvent
+	keydown_fn   ?gg.FNKeyDown
+	keyup_fn     ?gg.FNKeyUp
+	click_fn     ?gg.FNClick
+	unclick_fn   ?gg.FNUnClick
+	bg_color     ?gg.Color
+	title        string = "Canvas"
+	fullscreen   bool
+	user_data    voidptr
 }
 
 @[heap]
@@ -141,6 +149,30 @@ fn (mut c CC) on_event(event &gg.Event, _ voidptr) {
 	}
 }
 
+fn (mut c CC) on_keydown(keycode gg.KeyCode, m gg.Modifier, _ voidptr) {
+	if c.config.keydown_fn != none {
+		c.config.keydown_fn(keycode, m, c.config.user_data)
+	}
+}
+
+fn (mut c CC) on_keyup(keycode gg.KeyCode, m gg.Modifier, _ voidptr) {
+	if c.config.keyup_fn != none {
+		c.config.keyup_fn(keycode, m, c.config.user_data)
+	}
+}
+
+fn (mut c CC) on_click(x f32, y f32, button gg.MouseButton, _ voidptr) {
+	if c.config.click_fn != none {
+		c.config.click_fn(x, y, button, c.config.user_data)
+	}
+}
+
+fn (mut c CC) on_unclick(x f32, y f32, button gg.MouseButton, _ voidptr) {
+	if c.config.unclick_fn != none {
+		c.config.unclick_fn(x, y, button, c.config.user_data)
+	}
+}
+
 pub fn (c &CC) data[T]() &T {
 	return unsafe { c.config.user_data }
 }
@@ -191,6 +223,21 @@ fn setup(config CCConfig) {
 		c.config.event_fn = ctx.pref.event_fn
 	}
 
+	if c.config.keydown_fn == none && ctx.pref.keydown_fn != none {
+		c.config.keydown_fn = ctx.pref.keydown_fn
+	}
+
+	if c.config.keyup_fn == none && ctx.pref.keyup_fn != none {
+		c.config.keyup_fn = ctx.pref.keyup_fn
+	}
+
+	if c.config.click_fn == none && ctx.pref.click_fn != none {
+		c.config.click_fn = ctx.pref.click_fn
+	}
+
+	if c.config.unclick_fn == none && ctx.pref.unclick_fn != none {
+		c.config.unclick_fn = ctx.pref.unclick_fn
+	}
 
 	c.gg = gg.new_context(
 		bg_color:      bg_color
@@ -202,6 +249,10 @@ fn setup(config CCConfig) {
 		frame_fn:      c.frame
 		cleanup_fn:    c.cleanup
 		event_fn:      c.on_event
+		click_fn:      c.on_click
+		unclick_fn:    c.on_unclick
+		keyup_fn:      c.on_keyup
+		keydown_fn:    c.on_keydown
 		user_data:     c.config.user_data
 		fullscreen:    ctx.pref.fullscreen
 	)
@@ -227,6 +278,18 @@ fn setup_app(mut app IApp, user_data voidptr) {
 		}
 		event_fn: fn [mut app] (ev &gg.Event, _ voidptr) {
 			app.on_event(ev)
+		}
+		keydown_fn: fn [mut app] (keycode gg.KeyCode, m gg.Modifier, _ voidptr) {
+			app.key_pressed(keycode, m)
+		}
+		keyup_fn: fn [mut app] (keycode gg.KeyCode, m gg.Modifier, _ voidptr) {
+			app.key_released(keycode, m)
+		}
+		click_fn: fn [mut app] (x f32, y f32, button gg.MouseButton, _ voidptr) {
+			app.mouse_pressed(x, y, button)
+		}
+		unclick_fn: fn [mut app] (x f32, y f32, button gg.MouseButton, _ voidptr) {
+			app.mouse_released(x, y, button)
 		}
 		user_data: user_data
 	}
@@ -287,6 +350,26 @@ pub fn on_event(event_fn fn (&gg.Event, voidptr)) {
 pub fn on_exit(exit_fn fn (voidptr)) {
 	mut ctx := context()
 	ctx.pref.cleanup_fn = exit_fn
+}
+
+pub fn on_key_pressed(keydown_fn fn (gg.KeyCode, gg.Modifier, voidptr)) {
+	mut ctx := context()
+	ctx.pref.keydown_fn = keydown_fn
+}
+
+pub fn on_key_released(keyup_fn fn (gg.KeyCode, gg.Modifier, voidptr)) {
+	mut ctx := context()
+	ctx.pref.keyup_fn = keyup_fn
+}
+
+pub fn on_mouse_pressed(click_fn fn (f32, f32, gg.MouseButton, voidptr)) {
+	mut ctx := context()
+	ctx.pref.click_fn = click_fn
+}
+
+pub fn on_mouse_released(unclick_fn fn (f32, f32, gg.MouseButton, voidptr)) {
+	mut ctx := context()
+	ctx.pref.unclick_fn = unclick_fn
 }
 
 pub fn run(draw_fn fn (voidptr)) {

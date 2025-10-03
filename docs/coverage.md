@@ -14,6 +14,10 @@
 - on_init ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/callbacks/main.v))
 - on_event ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/callbacks/main.v))
 - on_exit ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/callbacks/main.v))
+- on_key_pressed
+- on_key_released
+- on_mouse_pressed
+- on_mouse_released
 
 ## [Window](../window.v)
 
