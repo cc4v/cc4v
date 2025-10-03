@@ -293,6 +293,13 @@ pub fn run(draw_fn fn (voidptr)) {
 	})
 }
 
+pub fn run_with[T](draw_fn fn (voidptr), mut user_data T) {
+	setup(CCConfig {
+		draw_fn: draw_fn,
+		user_data: user_data
+	})
+}
+
 pub fn run_new[T](draw_fn fn (voidptr)){
 	setup(CCConfig {
 		draw_fn: draw_fn,

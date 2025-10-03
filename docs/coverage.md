@@ -72,3 +72,11 @@
 
 - text ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/color_text/main.v))
 - text_size ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/color_text/main.v))
+
+## [Image](../image.v)
+
+- load_image ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/image/main.v))
+- image ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/image/main.v))
+- image_with_size
+- image_3d
+- image_3d_with_size
