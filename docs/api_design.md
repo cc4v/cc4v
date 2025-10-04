@@ -14,4 +14,4 @@
 
 - Not provide everything. If there are other libraries already doing something well, we should directly use them. For example, networking (OSC or DMX.)
 - Not game engine. Especially, we don't want to limit expression. So we don't provide for example ECS. Users should choose favorite library upon (in addition to) this framework. 
-    - You can create game engine upon this framework. CC (cc4v) would be the canvas or painting materials of them.
+    - You can create game engines upon this framework. CC (cc4v) would be the canvas or painting materials of them.
