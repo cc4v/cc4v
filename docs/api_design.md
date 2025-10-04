@@ -9,6 +9,8 @@
 ## This framework is/does:
 
 - Eliminate hard part for artists. Provide easy way to do something.
+- Be the first step for doing something. Should be the best tool for prototyping.
+    - If there are other professional tools compared to this framework. We should give way to them as the next step. We don't need to create professional tools. (But users can create them using/upon this framework.)
 
 ## This framework is not / does not:
 
