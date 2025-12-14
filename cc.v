@@ -11,7 +11,30 @@ import datatypes
 type FnCb_WithPtr = fn(voidptr)
 type FnCb_WithNoPtr = fn()
 type FnCbVar = FnCb_WithPtr | FnCb_WithNoPtr
-// type FnCbVar = ?gg.FNCb | fn()
+
+type FnEvent_WithPtr = fn (&gg.Event, voidptr)
+type FnEvent_WithNoPtr = fn (&gg.Event)
+type FnEventVar = FnEvent_WithPtr | FnEvent_WithNoPtr
+
+type FnKeyDown_WithPtr = fn (gg.KeyCode, gg.Modifier, voidptr)
+type FnKeyDown_WithNoPtr = fn (gg.KeyCode, gg.Modifier)
+type FnKeyDownVar = FnKeyDown_WithPtr | FnKeyDown_WithNoPtr
+
+type FnKeyUp_WithPtr = fn (gg.KeyCode, gg.Modifier, voidptr)
+type FnKeyUp_WithNoPtr = fn (gg.KeyCode, gg.Modifier)
+type FnKeyUpVar = FnKeyUp_WithPtr | FnKeyUp_WithNoPtr
+
+type FnClick_WithPtr = fn (f32, f32, gg.MouseButton, voidptr)
+type FnClick_WithNoPtr = fn (f32, f32, gg.MouseButton)
+type FnClickVar = FnClick_WithPtr | FnClick_WithNoPtr
+
+type FnUnClick_WithPtr = fn (f32, f32, gg.MouseButton, voidptr)
+type FnUnClick_WithNoPtr = fn (f32, f32, gg.MouseButton)
+type FnUnClickVar = FnUnClick_WithPtr | FnUnClick_WithNoPtr
+
+type FnMove_WithPtr = fn (f32, f32, voidptr)
+type FnMove_WithNoPtr = fn (f32, f32)
+type FnMoveVar = FnMove_WithPtr | FnMove_WithNoPtr
 
 pub struct CCConfig {
 pub mut:
@@ -19,12 +42,12 @@ pub mut:
 	update_fn    ?FnCbVar
 	draw_fn      ?FnCbVar
 	cleanup_fn   ?FnCbVar
-	event_fn     ?gg.FNEvent
-	keydown_fn   ?gg.FNKeyDown
-	keyup_fn     ?gg.FNKeyUp
-	click_fn     ?gg.FNClick
-	unclick_fn   ?gg.FNUnClick
-	move_fn      ?gg.FNMove
+	event_fn     ?FnEventVar
+	keydown_fn   ?FnKeyDownVar
+	keyup_fn     ?FnKeyUpVar
+	click_fn     ?FnClickVar
+	unclick_fn   ?FnUnClickVar
+	move_fn      ?FnMoveVar
 	user_data    voidptr
 }
 
@@ -164,37 +187,61 @@ fn (mut c CC) on_event(event &gg.Event, _ voidptr) {
 	c.update_last_key(event)
 
 	if c.config.event_fn != none {
-		c.config.event_fn(event, c.config.user_data)
+		fun := c.config.event_fn
+		match fun {
+			FnEvent_WithPtr { fun(event, c.config.user_data) }
+			FnEvent_WithNoPtr { fun(event) }
+		}
 	}
 }
 
 fn (mut c CC) on_keydown(keycode gg.KeyCode, m gg.Modifier, _ voidptr) {
 	if c.config.keydown_fn != none {
-		c.config.keydown_fn(keycode, m, c.config.user_data)
+		fun := c.config.keydown_fn
+		match fun {
+			FnKeyDown_WithPtr { fun(keycode, m, c.config.user_data) }
+			FnKeyDown_WithNoPtr { fun(keycode, m) }
+		}
 	}
 }
 
 fn (mut c CC) on_keyup(keycode gg.KeyCode, m gg.Modifier, _ voidptr) {
 	if c.config.keyup_fn != none {
-		c.config.keyup_fn(keycode, m, c.config.user_data)
+		fun := c.config.keyup_fn
+		match fun {
+			FnKeyUp_WithPtr { fun(keycode, m, c.config.user_data) }
+			FnKeyUp_WithNoPtr { fun(keycode, m) }
+		}
 	}
 }
 
 fn (mut c CC) on_click(x f32, y f32, button gg.MouseButton, _ voidptr) {
 	if c.config.click_fn != none {
-		c.config.click_fn(x, y, button, c.config.user_data)
+		fun := c.config.click_fn
+		match fun {
+			FnClick_WithPtr { fun(x, y, button, c.config.user_data) }
+			FnClick_WithNoPtr { fun(x, y, button) }
+		}
 	}
 }
 
 fn (mut c CC) on_unclick(x f32, y f32, button gg.MouseButton, _ voidptr) {
 	if c.config.unclick_fn != none {
-		c.config.unclick_fn(x, y, button, c.config.user_data)
+		fun := c.config.unclick_fn
+		match fun {
+			FnUnClick_WithPtr { fun(x, y, button, c.config.user_data) }
+			FnUnClick_WithNoPtr { fun(x, y, button) }
+		}
 	}
 }
 
 fn (mut c CC) on_move(x f32, y f32, _ voidptr) {
 	if c.config.move_fn != none {
-		c.config.move_fn(x, y, c.config.user_data)
+		fun := c.config.move_fn
+		match fun {
+			FnMove_WithPtr { fun(x, y, c.config.user_data) }
+			FnMove_WithNoPtr { fun(x, y) }
+		}
 	}
 }
 
