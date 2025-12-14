@@ -21,10 +21,12 @@
 - on_mouse_moved
 
 > [!NOTE]
-> `userdata voidptr` can be get as arg using:
-> - `on_init_with` (for `on_init`)
-> - `on_event_with` (for `on_event`)
-> - ... (same as)
+> `userdata voidptr` can be accessed as function argument (at last argument), using:
+> - `on_init_with`
+>     - (compared to `on_init`, you can use `fn(voiptr)` instead of `fn()` for callback function)
+> - `on_event_with`
+>     - (compared to `on_event`, you can use `fn(&gg.Event, voiptr)` instead of `fn(&gg.Event)` for callback function)
+> - ... (same for others)
 
 ## [Window](../window.v)
 
