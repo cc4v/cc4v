@@ -8,12 +8,17 @@ import math.vec
 import gg
 import datatypes
 
+type FnCb_WithPtr = fn(voidptr)
+type FnCb_WithNoPtr = fn()
+type FnCbVar = FnCb_WithPtr | FnCb_WithNoPtr
+// type FnCbVar = ?gg.FNCb | fn()
+
 pub struct CCConfig {
 pub mut:
-	init_fn      ?gg.FNCb
-	update_fn    ?gg.FNCb
-	draw_fn      ?gg.FNCb
-	cleanup_fn   ?gg.FNCb
+	init_fn      ?FnCbVar
+	update_fn    ?FnCbVar
+	draw_fn      ?FnCbVar
+	cleanup_fn   ?FnCbVar
 	event_fn     ?gg.FNEvent
 	keydown_fn   ?gg.FNKeyDown
 	keyup_fn     ?gg.FNKeyUp
@@ -91,20 +96,32 @@ fn (mut c CC) init(_ voidptr) {
 	c.apply_style()
 
 	if c.config.init_fn != none {
-		c.config.init_fn(c.config.user_data)
+		fun := c.config.init_fn
+		match fun {
+			FnCb_WithPtr { fun(c.config.user_data) }
+			FnCb_WithNoPtr { fun() }
+		}
 	}
 }
 
 fn (mut c CC) frame(_ voidptr) {
 	if c.config.update_fn != none {
-		c.config.update_fn(c.config.user_data)
+		fun := c.config.update_fn
+		match fun {
+			FnCb_WithPtr { fun(c.config.user_data) }
+			FnCb_WithNoPtr { fun() }
+		}
 	}
 
 	c.gg.begin()
 	push_matrix()
 	push_style()
 	if c.config.draw_fn != none {
-		c.config.draw_fn(c.config.user_data)
+		fun := c.config.draw_fn
+		match fun {
+			FnCb_WithPtr { fun(c.config.user_data) }
+			FnCb_WithNoPtr { fun() }
+		}
 	}
 	pop_style()
 	pop_matrix()
@@ -191,7 +208,11 @@ pub fn (mut c CC) set_data(user_data_ptr voidptr) {
 
 fn (mut c CC) cleanup(_ voidptr) {
 	if c.config.cleanup_fn != none {
-		c.config.cleanup_fn(c.config.user_data)
+		fun := c.config.cleanup_fn
+		match fun {
+			FnCb_WithPtr { fun(c.config.user_data) }
+			FnCb_WithNoPtr { fun() }
+		}
 	}
 }
 
