@@ -511,13 +511,13 @@ pub fn run(draw_fn FnDraw_WithNoPtr) {
 	})
 }
 
-pub fn run_data(draw_fn FnDraw_WithPtr) {
+pub fn run_with(draw_fn FnDraw_WithPtr) {
 	setup(CCConfig {
 		draw_fn: draw_fn
 	})
 }
 
-pub fn run_with[T](draw_fn FnDraw_WithPtr, mut user_data T) {
+pub fn run_with_data[T](draw_fn FnDraw_WithPtr, mut user_data T) {
 	setup(CCConfig {
 		draw_fn: draw_fn,
 		user_data: user_data
