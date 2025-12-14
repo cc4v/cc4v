@@ -11,9 +11,9 @@
 
 ## Function Callbacks (for Processing style)
 
-- on_init ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/callbacks/main.v))
-- on_event ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/callbacks/main.v))
-- on_exit ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/callbacks/main.v))
+- on_init ([example](https://github.com/cc4v/cc4v-examples/blob/main/callbacks/main.v))
+- on_event ([example](https://github.com/cc4v/cc4v-examples/blob/main/callbacks/main.v))
+- on_exit ([example](https://github.com/cc4v/cc4v-examples/blob/main/callbacks/main.v))
 - on_key_pressed
 - on_key_released
 - on_mouse_pressed
@@ -22,10 +22,10 @@
 
 ## [Window](../window.v)
 
-- size ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/window_title/main.v))
-- title ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/window_title/main.v))
-- mouse_x ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/circle/main.v))
-- mouse_y ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/circle/main.v))
+- size ([example](https://github.com/cc4v/cc4v-examples/blob/main/window_title/main.v))
+- title ([example](https://github.com/cc4v/cc4v-examples/blob/main/window_title/main.v))
+- mouse_x ([example](https://github.com/cc4v/cc4v-examples/blob/main/circle/main.v))
+- mouse_y ([example](https://github.com/cc4v/cc4v-examples/blob/main/circle/main.v))
 - mouse_dx
 - mouse_dy
 - mouse_buttons
@@ -34,10 +34,10 @@
 - mouse_released
 - mouse_just_pressed
 - mouse_just_released
-- key ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/key_pressed/main.v))
-- key_pressed ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/key_pressed/main.v))
+- key ([example](https://github.com/cc4v/cc4v-examples/blob/main/key_pressed/main.v))
+- key_pressed ([example](https://github.com/cc4v/cc4v-examples/blob/main/key_pressed/main.v))
 - key_released
-- key_just_pressed ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/key_just_pressed/main.v))
+- key_just_pressed ([example](https://github.com/cc4v/cc4v-examples/blob/main/key_just_pressed/main.v))
 - key_just_released
 - scroll_x
 - scroll_y
@@ -51,10 +51,10 @@
 ## [Color](../color.v)
 
 - background
-- set_color ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/color_rect/main.v))
+- set_color ([example](https://github.com/cc4v/cc4v-examples/blob/main/color_rect/main.v))
 - get_color
-- fill ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/color_rect/main.v))
-- no_fill ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/color_rect/main.v))
+- fill ([example](https://github.com/cc4v/cc4v-examples/blob/main/color_rect/main.v))
+- no_fill ([example](https://github.com/cc4v/cc4v-examples/blob/main/color_rect/main.v))
 
 ## [Push/Pop](../push_pop.v)
 
@@ -73,21 +73,21 @@
 
 ## [Shape](../shape.v)
 
-- rect ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/color_rect/main.v))
+- rect ([example](https://github.com/cc4v/cc4v-examples/blob/main/color_rect/main.v))
 - rounded_rect
 - square
-- circle ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/circle/main.v))
+- circle ([example](https://github.com/cc4v/cc4v-examples/blob/main/circle/main.v))
 - line
 
 ## [Text](../text.v)
 
-- text ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/color_text/main.v))
-- text_size ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/color_text/main.v))
+- text ([example](https://github.com/cc4v/cc4v-examples/blob/main/color_text/main.v))
+- text_size ([example](https://github.com/cc4v/cc4v-examples/blob/main/color_text/main.v))
 
 ## [Image](../image.v)
 
-- load_image ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/image/main.v))
-- image ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/image/main.v))
-- image_with_size ([example](https://github.com/cc4v/cc4v-examples/blob/main/tests/image/main.v))
+- load_image ([example](https://github.com/cc4v/cc4v-examples/blob/main/image/main.v))
+- image ([example](https://github.com/cc4v/cc4v-examples/blob/main/image/main.v))
+- image_with_size ([example](https://github.com/cc4v/cc4v-examples/blob/main/image/main.v))
 - image_3d
 - image_3d_with_size
