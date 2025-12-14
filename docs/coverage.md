@@ -20,6 +20,12 @@
 - on_mouse_released
 - on_mouse_moved
 
+> [!NOTE]
+> `userdata voidptr` can be get as arg using:
+> - `on_init_with` (for `on_init`)
+> - `on_event_with` (for `on_event`)
+> - ... (same as)
+
 ## [Window](../window.v)
 
 - size ([example](https://github.com/cc4v/cc4v-examples/blob/main/window_title/main.v))

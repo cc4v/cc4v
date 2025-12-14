@@ -12,6 +12,10 @@ type FnCb_WithPtr = fn(voidptr)
 type FnCb_WithNoPtr = fn()
 type FnCbVar = FnCb_WithPtr | FnCb_WithNoPtr
 
+type FnDraw = FnCbVar
+type FnDraw_WithPtr = fn(voidptr)
+type FnDraw_WithNoPtr = fn()
+
 type FnEvent_WithPtr = fn (&gg.Event, voidptr)
 type FnEvent_WithNoPtr = fn (&gg.Event)
 type FnEventVar = FnEvent_WithPtr | FnEvent_WithNoPtr
@@ -89,14 +93,14 @@ pub mut:
 struct InitialPreference {
 mut:
 	size         ?vec.Vec2[int]
-	init_fn      ?gg.FNCb
-	cleanup_fn   ?gg.FNCb
-	event_fn     ?gg.FNEvent
-	keydown_fn   ?gg.FNKeyDown
-	keyup_fn     ?gg.FNKeyUp
-	click_fn     ?gg.FNClick
-	unclick_fn   ?gg.FNUnClick
-	move_fn      ?gg.FNMove
+	init_fn      ?FnCbVar
+	cleanup_fn   ?FnCbVar
+	event_fn     ?FnEventVar
+	keydown_fn   ?FnKeyDownVar
+	keyup_fn     ?FnKeyUpVar
+	click_fn     ?FnClickVar
+	unclick_fn   ?FnUnClickVar
+	move_fn      ?FnMoveVar
 	bg_color     ?gg.Color
 	title        string = "Canvas"
 	fullscreen   bool
@@ -421,37 +425,72 @@ pub fn set_data_new[T]() {
 	}
 }
 
-pub fn on_init(init_fn fn (voidptr)) {
+pub fn on_init(init_fn fn ()) {
 	mut ctx := context()
 	ctx.pref.init_fn = init_fn
 }
 
-pub fn on_event(event_fn fn (&gg.Event, voidptr)) {
+pub fn on_init_with(init_fn fn (voidptr)) {
+	mut ctx := context()
+	ctx.pref.init_fn = init_fn
+}
+
+pub fn on_event(event_fn fn (&gg.Event)) {
 	mut ctx := context()
 	ctx.pref.event_fn = event_fn
 }
 
-pub fn on_exit(exit_fn fn (voidptr)) {
+pub fn on_event_with(event_fn fn (&gg.Event, voidptr)) {
+	mut ctx := context()
+	ctx.pref.event_fn = event_fn
+}
+
+pub fn on_exit(exit_fn fn ()) {
 	mut ctx := context()
 	ctx.pref.cleanup_fn = exit_fn
 }
 
-pub fn on_key_pressed(keydown_fn fn (gg.KeyCode, gg.Modifier, voidptr)) {
+pub fn on_exit_with(exit_fn fn (voidptr)) {
+	mut ctx := context()
+	ctx.pref.cleanup_fn = exit_fn
+}
+
+pub fn on_key_pressed(keydown_fn fn (gg.KeyCode, gg.Modifier)) {
 	mut ctx := context()
 	ctx.pref.keydown_fn = keydown_fn
 }
 
-pub fn on_key_released(keyup_fn fn (gg.KeyCode, gg.Modifier, voidptr)) {
+pub fn on_key_pressed_with(keydown_fn fn (gg.KeyCode, gg.Modifier, voidptr)) {
+	mut ctx := context()
+	ctx.pref.keydown_fn = keydown_fn
+}
+
+pub fn on_key_released(keyup_fn fn (gg.KeyCode, gg.Modifier)) {
 	mut ctx := context()
 	ctx.pref.keyup_fn = keyup_fn
 }
 
-pub fn on_mouse_pressed(click_fn fn (f32, f32, gg.MouseButton, voidptr)) {
+pub fn on_key_released_with(keyup_fn fn (gg.KeyCode, gg.Modifier, voidptr)) {
+	mut ctx := context()
+	ctx.pref.keyup_fn = keyup_fn
+}
+
+pub fn on_mouse_pressed(click_fn fn (f32, f32, gg.MouseButton)) {
 	mut ctx := context()
 	ctx.pref.click_fn = click_fn
 }
 
-pub fn on_mouse_released(unclick_fn fn (f32, f32, gg.MouseButton, voidptr)) {
+pub fn on_mouse_pressed_with(click_fn fn (f32, f32, gg.MouseButton, voidptr)) {
+	mut ctx := context()
+	ctx.pref.click_fn = click_fn
+}
+
+pub fn on_mouse_released(unclick_fn fn (f32, f32, gg.MouseButton)) {
+	mut ctx := context()
+	ctx.pref.unclick_fn = unclick_fn
+}
+
+pub fn on_mouse_released_with(unclick_fn fn (f32, f32, gg.MouseButton, voidptr)) {
 	mut ctx := context()
 	ctx.pref.unclick_fn = unclick_fn
 }
@@ -461,20 +500,25 @@ pub fn on_mouse_moved(move_fn fn (f32, f32, voidptr)) {
 	ctx.pref.move_fn = move_fn
 }
 
-pub fn run(draw_fn fn (voidptr)) {
+pub fn on_mouse_moved_with(move_fn fn (f32, f32)) {
+	mut ctx := context()
+	ctx.pref.move_fn = move_fn
+}
+
+pub fn run(draw_fn FnDraw_WithNoPtr) {
 	setup(CCConfig {
 		draw_fn: draw_fn
 	})
 }
 
-pub fn run_with[T](draw_fn fn (voidptr), mut user_data T) {
+pub fn run_with[T](draw_fn FnDraw_WithPtr, mut user_data T) {
 	setup(CCConfig {
 		draw_fn: draw_fn,
 		user_data: user_data
 	})
 }
 
-pub fn run_new[T](draw_fn fn (voidptr)){
+pub fn run_new[T](draw_fn FnDraw_WithPtr){
 	setup(CCConfig {
 		draw_fn: draw_fn,
 		user_data: &T{}
