@@ -27,6 +27,8 @@
 > - `on_event_with`
 >     - (compared to `on_event`, you can use `fn(&gg.Event, voiptr)` instead of `fn(&gg.Event)` for callback function)
 > - ... (same for others)
+>
+> Please check [image example](https://github.com/cc4v/cc4v-examples/blob/main/image/main.v) for usage.
 
 ## [Window](../window.v)
 
