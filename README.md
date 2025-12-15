@@ -8,7 +8,7 @@
 > Currently at very early stage. API design may change.<br>
 > (see [docs/coverage.md](docs/coverage.md))
 
-Creative Coding framework on [V](https://vlang.io/)
+Creative Coding framework in [V language](https://vlang.io/)
 
 Aiming to provide APIs like [openFrameworks](https://openframeworks.cc/documentation/) or [Processing](https://processing.org/reference) on V / [gg](https://modules.vlang.io/gg.html), with a little essence of [Ebitengine](https://ebitengine.org/). (Please check [docs/api_design.md](docs/api_design.md))
 
