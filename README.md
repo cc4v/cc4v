@@ -5,7 +5,7 @@
 (code of above: [examples/logo_icon](https://github.com/cc4v/cc4v-examples/blob/main/logo-icon/main.v))
 
 > [!WARNING]
-> Currently at early stage. API design may change in the future.<br>
+> Currently at early stage. API design may be changed in the future.<br>
 > (see [docs/coverage.md](docs/coverage.md))
 
 Creative Coding framework in [V language](https://vlang.io/)
