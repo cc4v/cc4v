@@ -1,4 +1,4 @@
-# cc4v
+# cc4v (creco)
 
 ![docs/screenshot_logo.png](docs/screenshot_logo.png)
 
