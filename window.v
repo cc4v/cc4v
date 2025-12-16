@@ -5,6 +5,7 @@
 module cc
 import math.vec
 import gg
+// import sokol.sapp
 
 pub fn size(w int, h int) {
 	mut ctx := context()
@@ -207,7 +208,9 @@ pub fn width() int {
 	if unsafe { ctx.cc != nil } {
 		return ctx.cc.gg.window_size().width
 	}else{
-		return gg.window_size().width
+		// return gg.window_size().width
+		return g().window_size().width
+		// return sapp.width()
 	}
 }
 
@@ -216,7 +219,9 @@ pub fn height() int {
 	if unsafe { ctx.cc != nil } {
 		return ctx.cc.gg.window_size().height
 	}else{
-		return gg.window_size().height
+		// return gg.window_size().height
+		return g().window_size().height
+		// return sapp.height()
 	}
 }
 
