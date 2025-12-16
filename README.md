@@ -21,6 +21,14 @@ Tested with V 0.4.12
 - APIs are similar to [openFrameworks](https://openframeworks.cc/) or [Processing](https://processing.org/).
 - You can use GL-compatible draw call using Sokol GL. (OpenGL 1.x style immediate-mode rendering API on top of sokol_gfx.h)
 
+## Naming ("cc" and "creco")
+
+"cc" stands for "Creative Coding".
+
+I know "cc" is usually used for "C language Compoiler" (such as `gcc`).
+
+So if you need full-name of this library, you can use "creco" or "cc4v" instead.
+
 ## Install
 
 ```bash
