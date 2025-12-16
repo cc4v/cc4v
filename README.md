@@ -19,7 +19,7 @@ Tested on V 0.4.12
 - Run as fast as C/C++/Rust even with GC, and coding style is so much fun just like scripting language. (Thank to [V language](https://vlang.io/))
 - Works on Win/Mac/Linux, on D3D11/Metal/GL/WebGL2/WebGPU. (Thank to [Sokol framework](https://github.com/floooh/sokol))
 - APIs are similar to [openFrameworks](https://openframeworks.cc/) or [Processing](https://processing.org/).
-- You can use GL-compatible call using Sokol GL. (OpenGL 1.x style immediate-mode rendering API on top of sokol_gfx.h)
+- You can use GL-compatible draw call using Sokol GL. (OpenGL 1.x style immediate-mode rendering API on top of sokol_gfx.h)
 
 ## Install
 
