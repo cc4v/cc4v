@@ -83,6 +83,7 @@ mut:
 	prev_mousebutton   gg.MouseButton = .invalid
 	last_mousedown bool
 	prev_mousedown bool
+	path_state     PathState
 
 pub mut:
 	gg &gg.Context = unsafe { nil }

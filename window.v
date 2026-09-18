@@ -225,6 +225,22 @@ pub fn height() int {
 	}
 }
 
+pub fn frame_count() u64 {
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		return ctx.cc.gg.frame
+	}
+	return 0
+}
+
+pub fn elapsed_time() f64 {
+	mut ctx := context()
+	if unsafe { ctx.cc != nil } {
+		return ctx.cc.gg.timer.elapsed().seconds()
+	}
+	return 0.0
+}
+
 pub fn screen_width() int {
 	return gg.screen_size().width
 }
