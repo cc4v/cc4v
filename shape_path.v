@@ -210,15 +210,75 @@ fn flatten_path(commands []PathCommand, close bool) [][]PathPoint {
 fn draw_filled_paths(paths [][]PathPoint, color gg.Color) {
 	for path in paths {
 		if path.len < 3 { continue }
+		mut polygon := path.clone()
+		if polygon.len > 1 && distance(polygon[0], polygon.last()) <= 0.001 {
+			polygon.pop()
+		}
+		triangles := triangulate(polygon)
 		sgl.c4f(color.r, color.g, color.b, color.a)
 		sgl.begin_triangles()
-		for i in 1 .. path.len - 2 {
-			sgl.v2f(path[0].x, path[0].y)
-			sgl.v2f(path[i].x, path[i].y)
-			sgl.v2f(path[i + 1].x, path[i + 1].y)
+		for triangle in triangles {
+			for point in triangle {
+				sgl.v2f(point.x, point.y)
+			}
 		}
 		sgl.end()
 	}
+}
+
+fn triangulate(polygon []PathPoint) [][]PathPoint {
+	if polygon.len < 3 { return [][]PathPoint{} }
+	mut indices := []int{}
+	for i in 0 .. polygon.len { indices << i }
+	orientation := if polygon_area(polygon) >= 0 { f32(1.0) } else { f32(-1.0) }
+	mut result := [][]PathPoint{}
+	mut guard := 0
+	for indices.len > 3 && guard < polygon.len * polygon.len {
+		mut clipped := false
+		for i in 0 .. indices.len {
+			previous := polygon[indices[(i + indices.len - 1) % indices.len]]
+			current := polygon[indices[i]]
+			next := polygon[indices[(i + 1) % indices.len]]
+			if cross(previous, current, next) * orientation <= 0 { continue }
+			mut contains := false
+			for candidate_index in indices {
+				candidate := polygon[candidate_index]
+				if candidate_index == indices[(i + indices.len - 1) % indices.len] || candidate_index == indices[i] || candidate_index == indices[(i + 1) % indices.len] { continue }
+				if point_in_triangle(candidate, previous, current, next, orientation) {
+					contains = true
+					break
+				}
+			}
+			if contains { continue }
+			result << [previous, current, next]
+			indices.delete(i)
+			clipped = true
+			break
+		}
+		if !clipped { return [][]PathPoint{} }
+		guard++
+	}
+	if indices.len == 3 {
+		result << [polygon[indices[0]], polygon[indices[1]], polygon[indices[2]]]
+	}
+	return result
+}
+
+fn polygon_area(polygon []PathPoint) f32 {
+	mut area := f32(0)
+	for i in 0 .. polygon.len {
+		next := (i + 1) % polygon.len
+		area += polygon[i].x * polygon[next].y - polygon[next].x * polygon[i].y
+	}
+	return area * 0.5
+}
+
+fn cross(a PathPoint, b PathPoint, c PathPoint) f32 {
+	return (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x)
+}
+
+fn point_in_triangle(point PathPoint, a PathPoint, b PathPoint, c PathPoint, orientation f32) bool {
+	return cross(a, b, point) * orientation >= 0 && cross(b, c, point) * orientation >= 0 && cross(c, a, point) * orientation >= 0
 }
 
 fn cubic(p0 PathPoint, p1 PathPoint, p2 PathPoint, p3 PathPoint, t f32) PathPoint {
