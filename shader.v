@@ -5,7 +5,6 @@
 module cc
 
 import sokol.gfx
-import sokol.sapp
 
 pub struct Shader {
 mut:
@@ -57,9 +56,6 @@ pub fn shader_rect_from_desc(desc &gfx.ShaderDesc, position_attr int) ShaderRect
 	mut pipeline_desc := gfx.PipelineDesc{}
 	pipeline_desc.shader = shader.raw_shader()
 	pipeline_desc.primitive_type = .triangle_strip
-	pipeline_desc.colors[0].pixel_format = gfx.PixelFormat.from(sapp.color_format()) or { gfx.PixelFormat.none }
-	pipeline_desc.depth.pixel_format = gfx.PixelFormat.from(sapp.depth_format()) or { gfx.PixelFormat.none }
-	pipeline_desc.sample_count = sapp.sample_count()
 	pipeline_desc.layout.attrs[position_attr].format = .float2
 	pipeline := gfx.make_pipeline(&pipeline_desc)
 	mut bindings := gfx.Bindings{}
