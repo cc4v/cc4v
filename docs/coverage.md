@@ -89,6 +89,20 @@
 - circle ([example](https://github.com/cc4v/cc4v-examples/blob/main/circle/main.v))
 - line
 
+## [Shape Path](../shape_path.v)
+
+- begin_shape / end_shape ([example](https://github.com/cc4v/cc4v-examples/blob/main/path/main.v))
+- vertex
+- move_to
+- bezier_vertex
+- quadratic_vertex
+- curve_vertex
+- bezier
+- curve
+- begin_contour / end_contour
+- triangle
+- arc
+
 ## [Text](../text.v)
 
 - text ([example](https://github.com/cc4v/cc4v-examples/blob/main/color_text/main.v))
